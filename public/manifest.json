@@ -1,0 +1,18 @@
+{
+  "name": "КБЖУ-трекер",
+  "short_name": "КБЖУ",
+  "description": "Персональный нутрициолог — считай калории и БЖУ",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#dde0ea",
+  "theme_color": "#26262b",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "./icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
