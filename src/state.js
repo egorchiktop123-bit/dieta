@@ -1,4 +1,5 @@
 export const state = {
+  userId: 67,
   name: 'Егор', sex: 'm', age: 25, h: 178, w: 63, wg: 70, act: 1.55, goal: 'gain',
   units: 'metric', notif: true, fx: true,
   goalKcal: 0, gP: 0, gC: 0, gF: 0,

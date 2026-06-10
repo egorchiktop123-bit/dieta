@@ -51,4 +51,13 @@ document.querySelectorAll('.tab').forEach(t => t.onclick = () => {
   replay(document.getElementById('tab' + t.dataset.tab), 'anim-in')
 })
 
+// Генерируем уникальный ID один раз и сохраняем в localStorage
+const savedId = localStorage.getItem('kbju_user_id')
+if (savedId) {
+  state.userId = parseInt(savedId)
+} else {
+  state.userId = Math.floor(10000 + Math.random() * 89999) // 5-значный: 10000–99999
+  localStorage.setItem('kbju_user_id', state.userId)
+}
+
 initOnboarding(startApp)

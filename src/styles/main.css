@@ -192,6 +192,7 @@ h2{font-size:19px;font-weight:700}
 .pgoalbadge{display:inline-block;background:linear-gradient(155deg,rgba(38,38,43,.10),rgba(38,38,43,.04));
   border:1px solid rgba(38,38,43,.18);color:var(--accent);font-size:12px;
   font-weight:700;padding:4px 11px;border-radius:20px;margin-top:5px}
+.puid{font-size:12px;color:var(--muted);font-weight:500;margin-top:5px;letter-spacing:.3px}
 .pstats{display:flex;gap:10px;margin-bottom:14px}
 .pstats .cell{flex:1;border-radius:16px;padding:14px;text-align:center}
 .pstats .cell b{font-size:20px;display:block}

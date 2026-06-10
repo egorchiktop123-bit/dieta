@@ -9,6 +9,7 @@ export function renderProfile() {
   $('#pfAvatar').textContent = (state.name[0] || '?').toUpperCase()
   $('#pfName').textContent = state.name
   $('#pfGoal').textContent = goalTxt
+  $('#pfUid').textContent = '#' + state.userId
   $('#pfW').textContent = wStr(cur)
   $('#pfWg').textContent = wStr(state.wg)
   $('#pfH').textContent = hStr(state.h)
