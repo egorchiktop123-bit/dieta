@@ -35,7 +35,7 @@
         <h1>Привет 👋</h1>
         <p class="sub">Давай рассчитаем твою норму калорий и БЖУ под цель. Займёт минуту.</p>
         <div class="field"><label>Как тебя зовут?</label>
-          <input id="inName" placeholder="Егор" value="Егор"></div>
+          <input id="inName" placeholder="Введи имя"></div>
       </div>
 
       <div id="obStep1" class="obstep grow hidden">
@@ -44,14 +44,14 @@
           <div class="opt sel" data-v="m">Мужской</div>
           <div class="opt" data-v="f">Женский</div>
         </div>
-        <div class="field"><label>Возраст</label><input id="inAge" type="number" value="25"></div>
+        <div class="field"><label>Возраст</label><input id="inAge" type="number" min="10" max="99" placeholder="например, 20"></div>
       </div>
 
       <div id="obStep2" class="obstep grow hidden">
         <h1>Параметры</h1>
-        <div class="field"><label>Рост, см</label><input id="inH" type="number" value="178"></div>
-        <div class="field"><label>Текущий вес, кг</label><input id="inW" type="number" value="63"></div>
-        <div class="field"><label>Целевой вес, кг</label><input id="inWg" type="number" value="70"></div>
+        <div class="field"><label>Рост, см</label><input id="inH" type="number" min="100" max="250" placeholder="например, 170"></div>
+        <div class="field"><label>Текущий вес, кг</label><input id="inW" type="number" min="30" max="300" step="0.1" placeholder="например, 65"></div>
+        <div class="field"><label>Целевой вес, кг</label><input id="inWg" type="number" min="30" max="300" step="0.1" placeholder="например, 60"></div>
       </div>
 
       <div id="obStep3" class="obstep grow hidden">

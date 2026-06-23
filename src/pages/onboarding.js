@@ -3,6 +3,12 @@ import { $, $$ } from '../utils.js'
 import { computeNorm, calcTDEE } from '../calc.js'
 import { countUp, replay } from '../utils.js'
 
+function shake(el) {
+  el.classList.remove('shake')
+  void el.offsetWidth
+  el.classList.add('shake')
+}
+
 const steps = ['obStep0', 'obStep1', 'obStep2', 'obStep3', 'obStep4', 'obResult']
 let step = 0
 let _onComplete = null
@@ -47,12 +53,22 @@ export function initOnboarding(onComplete) {
   bindSeg('optGoal', 'goal')
 
   $('#obNext').onclick = () => {
-    if (step === 0) state.name = $('#inName').value || 'Друг'
-    if (step === 1) state.age = +$('#inAge').value
+    if (step === 0) {
+      state.name = $('#inName').value.trim() || 'Друг'
+    }
+    if (step === 1) {
+      const age = +$('#inAge').value
+      if (!age || age < 10 || age > 99) { shake($('#inAge')); return }
+      state.age = age
+    }
     if (step === 2) {
-      state.h = +$('#inH').value
-      state.w = +$('#inW').value
-      state.wg = +$('#inWg').value
+      const h = +$('#inH').value, w = +$('#inW').value, wg = +$('#inWg').value
+      if (!h || h < 100 || h > 250) { shake($('#inH')); return }
+      if (!w || w < 30 || w > 300)  { shake($('#inW')); return }
+      if (!wg || wg < 30 || wg > 300) { shake($('#inWg')); return }
+      state.h = h
+      state.w = w
+      state.wg = wg
       const g = state.wg > state.w ? 'gain' : state.wg < state.w ? 'lose' : 'keep'
       state.goal = g
       $$('#optGoal .opt').forEach(o => o.classList.toggle('sel', o.dataset.v === g))

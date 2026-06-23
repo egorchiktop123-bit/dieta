@@ -1,6 +1,6 @@
 export const state = {
-  userId: 67,
-  name: 'Егор', sex: 'm', age: 25, h: 178, w: 63, wg: 70, act: 1.55, goal: 'gain',
+  userId: 0,
+  name: '', sex: 'm', age: 0, h: 0, w: 0, wg: 0, act: 1.55, goal: 'keep',
   units: 'metric', notif: true, fx: true,
   goalKcal: 0, gP: 0, gC: 0, gF: 0,
   meals: { 'Завтрак': [], 'Обед': [], 'Ужин': [], 'Перекусы': [] },
