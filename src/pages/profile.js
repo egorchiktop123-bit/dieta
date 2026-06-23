@@ -1,6 +1,7 @@
 import { state } from '../state.js'
 import { $, wStr, hStr, countUp, toast } from '../utils.js'
 import { recalcNorm } from '../calc.js'
+import { upsertProfile } from '../db.js'
 
 export function renderProfile() {
   const goalTxt = { gain: 'Набор массы', lose: 'Снижение веса', keep: 'Поддержание' }[state.goal]
@@ -47,6 +48,7 @@ window.openGoalPicker = function () {
     { v: 'lose', label: 'Снижение веса', note: 'Дефицит калорий' }
   ], state.goal, v => {
     state.goal = v; recalcNorm()
+    upsertProfile(state.userId, state).catch(console.error)
     toast('🎯 Цель обновлена · норма ' + state.goalKcal + ' ккал')
   })
 }
@@ -60,6 +62,7 @@ window.openActPicker = function () {
     { v: '1.9',   label: 'Очень высокая',  note: 'Физический труд + спорт' }
   ], String(state.act), v => {
     state.act = v; recalcNorm()
+    upsertProfile(state.userId, state).catch(console.error)
     toast('🏃 Активность обновлена · норма ' + state.goalKcal + ' ккал')
   })
 }

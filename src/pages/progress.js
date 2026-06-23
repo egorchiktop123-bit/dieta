@@ -1,6 +1,7 @@
 import { state } from '../state.js'
 import { $, wStr, replay, toast } from '../utils.js'
 import { calcCorrection } from '../calc.js'
+import { saveNormAdjustment } from '../db.js'
 
 export function renderProgress() {
   const logs = [...state.weightLogs].sort((a, b) => a.date - b.date)
@@ -86,12 +87,9 @@ export function renderProgress() {
 window.applyCorrection = function () {
   const corr = calcCorrection()
   if (!corr) return
-  state.normHistory.push({
-    date: Date.now(),
-    oldKcal: state.goalKcal,
-    newKcal: corr.newKcal,
-    reason: `Коррекция по ${corr.weeksObserved} нед. данным`
-  })
+  const reason = `Коррекция по ${corr.weeksObserved} нед. данным`
+  state.normHistory.push({ date: Date.now(), oldKcal: state.goalKcal, newKcal: corr.newKcal, reason })
+  saveNormAdjustment(state.userId, state.goalKcal, corr.newKcal, reason).catch(console.error)
   state.goalKcal = corr.newKcal
   state.gP = Math.round(state.w * (state.goal === 'gain' ? 2 : 1.8))
   state.gF = Math.round(state.w * 0.9)

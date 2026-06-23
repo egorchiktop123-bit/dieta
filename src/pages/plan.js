@@ -1,5 +1,6 @@
 import { state, DB, WDB } from '../state.js'
 import { $, plural, countUp, replay, confetti, toast } from '../utils.js'
+import { deleteWorkout } from '../db.js'
 
 export function buildWeek() {
   const days = ['П', 'В', 'С', 'Ч', 'П', 'С', 'В']
@@ -83,6 +84,8 @@ window.switchPlan = function (view) {
 }
 
 window.removeWorkout = function (i) {
+  const w = state.workouts[i]
+  if (w._dbId) deleteWorkout(w._dbId).catch(console.error)
   state.workouts.splice(i, 1)
   renderWorkouts()
   renderSummary()

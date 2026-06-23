@@ -1,5 +1,6 @@
 import { state, DB, WDB } from '../state.js'
 import { $, wStr, kgFromLb, replay, toast } from '../utils.js'
+import { saveDiaryEntry, saveWorkout, saveWeightLog } from '../db.js'
 
 let curMeal = null
 
@@ -34,7 +35,11 @@ window.addFood = function (idx) {
   const g = parseInt(prompt(`Сколько грамм «${f[0]}»?`, '150'))
   if (!g || g <= 0) return
   const k = f[1] * g / 100, p = f[2] * g / 100, c = f[3] * g / 100, fa = f[4] * g / 100
-  state.meals[curMeal].push({ n: f[0], g, k, p, c, f: fa })
+  const item = { n: f[0], g, k, p, c, f: fa }
+  state.meals[curMeal].push(item)
+  saveDiaryEntry(state.userId, curMeal, item)
+    .then(({ data }) => { if (data?.[0]?.id) item._dbId = data[0].id })
+    .catch(console.error)
   const mealIdx = Object.keys(state.meals).indexOf(curMeal)
   window.closeSheet()
   window.renderMeals?.()
@@ -66,7 +71,11 @@ window.addWorkout = function (i) {
   const w = WDB[i]
   const min = parseInt(prompt(`Сколько минут «${w[0]}»?`, '45'))
   if (!min || min <= 0) return
-  state.workouts.push({ type: w[0], emoji: w[1], min, kcal: w[2] * min })
+  const workout = { type: w[0], emoji: w[1], min, kcal: w[2] * min }
+  state.workouts.push(workout)
+  saveWorkout(state.userId, workout)
+    .then(({ data }) => { if (data?.[0]?.id) workout._dbId = data[0].id })
+    .catch(console.error)
   window.closeWorkoutSheet()
   window.renderWorkouts?.()
   window.renderSummary?.()
@@ -108,7 +117,11 @@ window.saveWeight = function () {
   if (!raw || raw <= 0) return
   const w = state.units === 'imperial' ? kgFromLb(raw) : raw
   state.w = w
-  state.weightLogs.push({ date: Date.now(), weight: w })
+  const log = { date: Date.now(), weight: w }
+  state.weightLogs.push(log)
+  saveWeightLog(state.userId, w)
+    .then(({ data }) => { if (data?.[0]?.id) log._dbId = data[0].id })
+    .catch(console.error)
   window.closeWeightSheet()
   window.renderProgress?.()
   window.renderCoach?.()
